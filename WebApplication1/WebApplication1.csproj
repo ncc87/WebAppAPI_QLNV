@@ -119,7 +119,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\animate.css" />
+    <Content Include="css\font-awesome.min.css" />
+    <Content Include="css\main.css" />
+    <Content Include="css\perfect-scrollbar.css" />
+    <Content Include="css\select2.min.css" />
     <Content Include="css\site.css" />
+    <Content Include="css\util.css" />
     <Content Include="DSNV.html" />
     <Content Include="js\site.js" />
     <Content Include="lib\bootstrap\dist\css\bootstrap-grid.css" />
@@ -161,6 +167,7 @@
     <Content Include="lib\bootstrap\LICENSE" />
     <Content Include="lib\jquery-validation\LICENSE.md" />
     <Content Include="lib\jquery\dist\jquery.min.map" />
+    <Content Include="css\bootstrap.min.css.map" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -5,6 +5,13 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAppAPI_QLNV", "WebAppAPI_QLNV\WebAppAPI_QLNV.csproj", "{6F9CFC0A-23BE-4E8D-B9FD-709C4B5017FE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1959026C-EA7A-4636-9595-A36412CF19E3}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{669C5B2B-BDE3-436D-A858-6507A9DAF7B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +22,10 @@ Global
 		{6F9CFC0A-23BE-4E8D-B9FD-709C4B5017FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6F9CFC0A-23BE-4E8D-B9FD-709C4B5017FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6F9CFC0A-23BE-4E8D-B9FD-709C4B5017FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{669C5B2B-BDE3-436D-A858-6507A9DAF7B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{669C5B2B-BDE3-436D-A858-6507A9DAF7B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{669C5B2B-BDE3-436D-A858-6507A9DAF7B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{669C5B2B-BDE3-436D-A858-6507A9DAF7B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
