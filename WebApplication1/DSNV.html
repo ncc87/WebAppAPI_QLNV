@@ -12,7 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/jquery/dist/jquery.min.js"></script>
-
     <!--------------           MAIN               ---------------->
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <meta name="robots" content="noindex, follow">
@@ -23,46 +22,39 @@
 </head>
 
 <body>
-    <div class="container">
-        <!-- The Modal -->
-        <div class="modal" id="myModal">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form style="background-color: antiquewhite;">
-                        <fieldset>
-                            <h4>Cập nhật thông tin nhân viên <button type='button' class='close'
-                                    data-dismiss='modal'>&times;</button> </h4>
-                            <hr>
-                            <div class="form-group">
-                                <label for="TextInput">Mã nhân viên:</label>
-                                <input type="text" id="idnv" class="form-control" placeholder="">
-                            </div>
-                            <div class="form-group">
-                                <label for="Select">Họ tên: </label>
-                                <input type="text" id="fullname" class="form-control" placeholder="">
-                            </div>
-                            <div class="sex">
-                                <label>Giới tính:</label>
-                                <div class="male">
-                                    <input type="radio" id="male" name="fav_language" value="true">
-                                    <label for="male">Nam</label>
-                                    <input class="female" type="radio" id="female" name="fav_language" value="false">
-                                    <label class="female" for="female">Nữ</label>
-                                </div>
-                            </div>
-                            <div class="year">
-                                <label for="year">Năm sinh:</label>
-                                <select id="year" class="year" style="float: right;">
-                                    <option> Year</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn btn-primary" style="float: right;">Lưu</button>
-                        </fieldset>
-                    </form>
+    <dialog id="myModal">
+        <form style="background-color: antiquewhite;">
+            <fieldset>
+                <h4>Cập nhật thông tin nhân viên <button type='button' class='close'
+                        data-dismiss='modal'>&times;</button> </h4>
+                <hr>
+                <div class="form-group">
+                    <label for="TextInput">Mã nhân viên:</label>
+                    <input type="text" id="idnv" class="form-control" placeholder="">
                 </div>
-            </div>
-        </div>
-    </div>
+                <div class="form-group">
+                    <label for="Select">Họ tên: </label>
+                    <input type="text" id="fullname" class="form-control" placeholder="">
+                </div>
+                <div class="sex">
+                    <label>Giới tính:</label>
+                    <div class="male">
+                        <input type="radio" id="male" name="fav_language" value="true">
+                        <label for="male">Nam</label>
+                        <input class="female" type="radio" id="female" name="fav_language" value="false">
+                        <label class="female" for="female">Nữ</label>
+                    </div>
+                </div>
+                <div class="year">
+                    <label for="year">Năm sinh:</label>
+                    <select id="year" class="year" style="float: right;">
+                        <option> Year</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" style="float: right;">Lưu</button>
+            </fieldset>
+        </form>
+    </dialog>
     <div class="limiter">
         <div class="container-table100">
             <div class="wrap-table100">
@@ -99,42 +91,25 @@
                     var str = "";
 
                     $.each(rs, function (i, item) {
-                        str += "<tr  data-toggle='modal' data-target='#myModal'>";
-                        str += "<td style='text-align: center'>" + item.maNV + "</span></td>";
-                        str += "<td style='text-align: center'>" + item.hoTen + "</td>";
+                        str += "<tr>";
+                        str += "<td style='text-align: center' ><a href='#' onclick='javascript:myFunction()' id='idNhanVien'>" + item.maNV + "</a></td>";
+                        str += "<td style='text-align: center'><a class='ho-ten'>" + item.hoTen + "</a></td>";
                         str += "<td style='text-align: center'>" + item.namSinh + "</td>";
                         str += "<td style='text-align: center'>" + (item.gioiTinh == false ? "Nữ" : "Nam") + "</td>";
-                        str += "</tr>";
+                        str += "</a></tr>";
                     });
                     $('#load_data').html(str);
                 }
             });
         }
 
-        function DataNhanVien() {
-            $.ajax({
-                url: 'https://localhost:44352/api/NhanVien/DSNV',
-                type: 'GET',
-                success: function (rs) {
-                    console.log(rs);
-                    var str = "";
-
-                    $.each(rs, function (cont, item) {
-                        str += "<div class='modal-header'>";
-                        str += "<h4 class='modal-title'>" + item.maNV + "</h4>"
-                        str += "<button type ='button' class='close' data-dismiss='modal'>&times;</button></div>"
-                        str += "<div class='modal-body'>" + item.hoTen + "</div>"
-                        str += "<div class='modal-body'>" + item.namSinh + "</div>"
-                        str += "<div class='modal-body'>" + (item.gioiTinh == false ? "Nữ" : "Nam") + "</div>"
-                        $('.modal-header').html(str);
-                    });
-                    $('.modal-content').html(str);
-                }
-            });
-        }
 
     </script>
-
+    <script>
+        function myFunction() {
+            document.getElementById("myDialog").showModal();
+        } 
+    </script>
     <script>
         (function () {
             let year_selected = (new Date).getDate(); // current year
