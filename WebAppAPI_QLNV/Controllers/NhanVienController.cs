@@ -4,8 +4,6 @@ using WebAppAPI_QLNV.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using WebAppAPI_QLNV.Data;
-using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace MyWebApp.Controllers
 {
