@@ -97,6 +97,7 @@
                 success: function (rs) {
                     console.log(rs);
                     var str = "";
+
                     $.each(rs, function (i, item) {
                         str += "<tr  data-toggle='modal' data-target='#myModal'>";
                         str += "<td style='text-align: center'>" + item.maNV + "</span></td>";
@@ -104,8 +105,6 @@
                         str += "<td style='text-align: center'>" + item.namSinh + "</td>";
                         str += "<td style='text-align: center'>" + (item.gioiTinh == false ? "Nữ" : "Nam") + "</td>";
                         str += "</tr>";
-                        $('#idNv').html(item.maNV);
-                        $('#fullName').html(item.hoTen);
                     });
                     $('#load_data').html(str);
                 }
