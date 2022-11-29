@@ -33,7 +33,8 @@
     <dialog id="myDialog" style=" max-width: 500px; margin: auto;">
         <form style="background-color: antiquewhite;">
             <fieldset>
-                <h4>Cập nhật thông tin nhân viên <button type='button' id='close' data-dismiss='modal' onclick="closeDialog()">&times;</button>
+                <h4>Cập nhật thông tin nhân viên <button type='button' id='close' data-dismiss='modal'
+                        onclick="closeDialog()">&times;</button>
                 </h4>
                 <hr>
                 <div class="form-group">
@@ -47,7 +48,7 @@
 
                 <div class="sex">
                     <label>Giới tính:</label>
-                    <div class="male">
+                    <div class="sex">
                         <input type="radio" id="male" name="fav_language" value="true">
                         <label for="male">Nam</label>
                         <input class="female" type="radio" id="female" name="fav_language" value="false">
@@ -88,61 +89,66 @@
             </div>
         </div>
     </div>
+    <!-- script -->
     <script>
         $(document).ready(function () {
             LoadData();
         });
-        let cont = 0;
+        var count = 0;
+        var manv = "nv";
+        var host = "https://localhost:44391/api";
+        var x = document.getElementById("myDialog");
 
         function LoadData() {
             $.ajax({
-                url: 'https://localhost:44391/api/NhanVien/DSNV',
+                //host 
+                url: host + '/NhanVien/DSNV',
                 type: 'GET',
                 success: function (rs) {
                     console.log(rs);
                     var str = "";
 
                     $.each(rs, function (i, item) {
+                        var idnv = "";
+                        idnv = manv + count;
                         str += "<tr>";
-                        str += "<td style='text-align: center' ><a href='#' onclick='javascript:showDialog()' id='idNhanVien'>" + item.maNV + "</a></td>";
+                        str += "<td style='text-align: center' ><a href='#' onclick='javascript:showDialog(\"" + item.maNV + "\")' id='idNhanVien'>" + item.maNV + "</a></td>";
                         str += "<td style='text-align: center'><a class='ho-ten'>" + item.hoTen + "</a></td>";
                         str += "<td style='text-align: center'>" + item.namSinh + "</td>";
                         str += "<td style='text-align: center'>" + (item.gioiTinh == false ? "Nữ" : "Nam") + "</td>";
                         str += "</a></tr>";
+                        count++;
                     });
+
                     $('#load_data').html(str);
                 }
             });
         }
-
-    </script>
-    <script>
-        // function showDialog(){
-        //     document.getElementById("myDialog").showModal();
-        // }
-        var x = document.getElementById("myDialog");
-
-        function showDialog() {
+        function showDialog(maNV) {
             x.showModal();
-            var id = document.getElementById('idNhanVien').innerHTML;
-
             $.ajax({
-                url: 'https://localhost:44391/api/NhanVien/FindByMaNV:' + id,
+                url: host + '/NhanVien/FindByMaNV:' + maNV,
                 type: 'GET',
                 success: function (nv) {
-                    console.log(nv); 
+                    console.log(nv);
                     $('#idnv').val(nv.maNV);
                     $('#ho-ten').val(nv.hoTen);
+                    if(nv.gioiTinh == true){
+                        $("#male").prop("checked", true);
+                    } 
+                    else {
+                        $("#female").prop("checked", true);
+                    }
+                    $('#male').val(nv.gioiTinh == false ? "checked" : "checked");     
                     $('#year').val(nv.namSinh);
 
                 }
             });
         }
+
         function closeDialog() {
             x.close();
         }
-    </script>
-    <script>
         (function () {
             let year_selected = (new Date).getDate(); // current year
             let option = '';
@@ -158,7 +164,6 @@
         })();
 
     </script>
-    <!-- <script src="js/main.js"></script> -->
 
 </body>
 
