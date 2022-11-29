@@ -104,7 +104,7 @@
 
                     $.each(rs, function (i, item) {
                         str += "<tr>";
-                        str += "<td style='text-align: center' ><a href='#' onclick='javascript:showDialog()' id='idNhanVien'>" + item.maNV + "</a></td>";
+                        str += "<td style='text-align: center' ><a href='#' onclick='javascript:showDialog('"+ item.maNV +"')' id='idNhanVien'>" + item.maNV + "</a></td>";
                         str += "<td style='text-align: center'><a class='ho-ten'>" + item.hoTen + "</a></td>";
                         str += "<td style='text-align: center'>" + item.namSinh + "</td>";
                         str += "<td style='text-align: center'>" + (item.gioiTinh == false ? "Nữ" : "Nam") + "</td>";
@@ -122,7 +122,7 @@
         // }
         var x = document.getElementById("myDialog");
 
-        function showDialog() {
+        function showDialog(maNV) {
             x.showModal();
             var id = document.getElementById('idNhanVien').innerHTML;
 
