@@ -115,7 +115,6 @@
             });
         }
 
-
     </script>
     <script>
         // function showDialog(){
@@ -130,12 +129,11 @@
             $.ajax({
                 url: 'https://localhost:44391/api/NhanVien/FindByMaNV:' + id,
                 type: 'GET',
-                success: function (id) {
-                    console.log(id);
-                    var str = "";
-                    $('#idnv').val(id.maNV);
-                    $('#ho-ten').val(id.hoTen);
-                    $('#ho-ten').val(id.hoTen);
+                success: function (nv) {
+                    console.log(nv); 
+                    $('#idnv').val(nv.maNV);
+                    $('#ho-ten').val(nv.hoTen);
+                    $('#year').val(nv.namSinh);
 
                 }
             });
@@ -148,7 +146,7 @@
         (function () {
             let year_selected = (new Date).getDate(); // current year
             let option = '';
-            option = '<input list="years" name="year">< datalist id = "years" > '; // first option
+            option = '<input list="years" name="year" id="year">< datalist id = "years" > '; // first option
             let year = new Date().getFullYear();
             for (let i = 1900; i <= year; i++) {
                 let year = (i <= 9) ? '0' + i : i;
