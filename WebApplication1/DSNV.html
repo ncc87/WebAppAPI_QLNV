@@ -45,7 +45,42 @@
                     <label for="TextInput"> Họ tên: </label>
                     <input type="text" id="ho-ten" class="form-control">
                 </div>
-
+    <div class="container">
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form style="background-color: antiquewhite;">
+                        <fieldset>
+                            <h4>Cập nhật thông tin nhân viên <button type='button' class='close'
+                                    data-dismiss='modal'>&times;</button> </h4>
+                            <hr>
+                            <div class="form-group">
+                                <label for="TextInput">Mã nhân viên:</label>
+                                <input type="text" id="TextInput" class="form-control" placeholder="">
+                            </div>
+                            <div class="form-group">
+                                <label for="Select">Họ tên: </label>
+                                <input type="text" id="TextInput" class="form-control" placeholder="">
+                            </div>
+                            <div class="sex">
+                                <label>Giới tính:</label>
+                                <div class="male">
+                                    <input type="radio" id="male" name="fav_language" value="true">
+                                    <label for="male">Nam</label>
+                                    <input class="female" type="radio" id="female" name="fav_language" value="false">
+                                    <label class="female" for="female">Nữ</label>
+                                </div>
+                            </div>
+                            <div class="year">
+                                <label for="year">Năm sinh:</label>
+                                <select id="year" class="year" style="float: right;">
+                                    <option> Year</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="float: right;">Lưu</button>
+                        </fieldset>
+                    </form>
                 <div class="sex">
                     <label>Giới tính:</label>
                     <div class="sex">
