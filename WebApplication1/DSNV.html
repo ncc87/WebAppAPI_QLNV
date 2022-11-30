@@ -48,10 +48,10 @@
                 <div class="sex">
                     <label>Giới tính:</label>
                     <div class="sex">
-                        <input type="radio" id="male" name="fav_language" value="true">
+                        <input class="radioBtnClass" type="radio" id="male" name="fav_language" value="true">
                         <label for="male">Nam</label>
-                        <input class="female" type="radio" id="female" name="fav_language" value="false">
-                        <label class="female" for="female">Nữ</label>
+                        <input class="radioBtnClass" type="radio" id="female" name="fav_language" value="false">
+                        <label for="female">Nữ</label>
                     </div>
                 </div>
                 <div class="year">
@@ -60,7 +60,8 @@
                         <option> Year</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary" style="float: right;">Lưu</button>
+                <div class="errMsg"></div>
+                <button type="submit" id="btnUpdate" class="btn btn-primary" style="float: right;">Lưu</button>
             </fieldset>
         </form>
     </dialog>
@@ -129,9 +130,9 @@
                     console.log(nv);
                     $('#idnv').val(nv.maNV);
                     $('#ho-ten').val(nv.hoTen);
-                    if(nv.gioiTinh == true){
+                    if (nv.gioiTinh == true) {
                         $("#male").prop("checked", true);
-                    } 
+                    }
                     else {
                         $("#female").prop("checked", true);
                     }
@@ -139,6 +140,91 @@
                 }
             });
         }
+        // Data
+        function validateData() {
+            var txtID = $("#idnv").val();
+            var txtName = $("#ho-ten").val();
+            var sex = $('input[name="radioBtnClass"]:checked').val();
+            var txtYear = $("#year").val();
+            var errMsg = "";
+            var errCount = 0;
+            if (txtName.length <= 0) {
+                errCount++;
+                errMsg += "<li>Please enter Name.</li>";
+            }
+            if (txtID.length <= 0) {
+                errCount++;
+                errMsg += "<li>Please enter Email.</li>";
+            }
+            if (txtYear.length <= 0) {
+                errCount++;
+                errMsg += "<li>Please enter Age.</li>";
+            }
+            if (errCount > 0) {
+
+                $(".errMsg ul").remove()
+                $(".errMsg").append("<ul>" + errMsg + "</ul>");
+                $(".errMsg").slideDown('slow');
+            }
+            return errCount;
+        }
+        // Update 
+        function updateData() {
+            var errCount = validateData();
+            if (errCount == 0) {
+                var txtID = $("#idnv").val();
+                var txtName = $("#ho-ten").val();
+                var sex = $('input[name="radioBtnClass"]:checked').val();
+                var txtYear = $("#year").val();
+                $.ajax({
+                    type: "POST",
+                    url: host + '/NhanVien/Edit:' + txtID,
+                    data: "{maNV:'" + txtID + "',hoTen:'" + txtName + "',namSinh:'" + txtYear + "',gioiTinh:'" + sex + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    datatype: "jsondata",
+                    async: "true",
+                    success: function (response) {
+                        $(".errMsg ul").remove();
+                        var myObject = eval('(' + response.d + ')');
+                        if (myObject > 0) {
+                            bindData();
+                            $(".errMsg").append("<ul><li>Data updated successfully</li></ul>");
+                        }
+                        else {
+                            $(".errMsg").append("<ul><li>Opppps something went wrong.</li></ul>");
+                        }
+                        $(".errMsg").show("slow");
+                        clear();
+                    },
+                    error: function (response) {
+                        alert(response.status + ' ' + response.statusText);
+                    }
+                });
+            }
+        }
+        // $('body').on("click", "#btnUpdate", function () {
+        //     var nhanvien = {};
+        //     nhanvien.maNV = $('#idnv').val();
+        //     nhanvien.hoTen = $('#ho-ten').val();
+        //     if ($("input[type='radio'].radioBtnClass").is(':checked')) {
+        //         nhanvien.gioiTinh = $("input[type='radio'].radioBtnClass:checked").val();
+        //     }
+        //     nhanvien.namSinh = $('#year').val();
+        //     $.ajax({
+        //         url: host + '/NhanVien/Edit:',
+        //         type: 'POST',
+        //         data: JSON.stringify(nhanvien),
+        //         contentType: "application/json; charset=utf-8",
+        //         dataType: "json",
+        //         success: function (r) {
+        //             if (r) {
+        //                 alert("Customer record updated.");
+        //             } else {
+        //                 alert("Customer not found.");
+        //             }
+        //         }
+        //     });
+        // });
 
         function closeDialog() {
             x.close();
