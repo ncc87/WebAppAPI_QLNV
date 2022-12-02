@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <label for="TextInput"> Mã nhân viên:</label>
                     <input type="text" id="idnv" class="form-control">
-                </div>
+                </div>AddNewStudent
                 <div class="form-group">
                     <label for="TextInput"> Họ tên: </label>
                     <input type="text" id="ho-ten" class="form-control">
@@ -64,7 +64,7 @@
                     </select>
                 </div>
                 <div class="errMsg"></div>
-                <button type="submit" id="btnUpdate" class="btn btn-primary" style="float: right;" onclick="updateData()">Lưu</button>
+                <button type="submit" id="btnUpdate" class="btn btn-primary" style="float: right;">Lưu</button>
             </fieldset>
         </form>
     </dialog>
@@ -73,6 +73,8 @@
         <div class="container-table100">
             <div class="wrap-table100">
                 <div class="table100">
+                    <a href="#" class="btn btn-info" onclick="AddNew(0)">Add New</a> <br /><br />
+
                     <table>
                         <thead>
                             <tr class="table100-head">
@@ -94,8 +96,6 @@
         $(document).ready(function () {
             LoadData();
         });
-        var count = 0;
-        var manv = "nv";
         var host = "https://localhost:44391/api";
         var x = document.getElementById("myDialog");
 
@@ -109,15 +109,13 @@
                     var str = "";
 
                     $.each(rs, function (i, item) {
-                        var idnv = "";
-                        idnv = manv + count;
                         str += "<tr>";
                         str += "<td style='text-align: center' ><a href='#' onclick='javascript:showDialog(\"" + item.maNV + "\")' id='idNhanVien'>" + item.maNV + "</a></td>";
                         str += "<td style='text-align: center'><a class='ho-ten'>" + item.hoTen + "</a></td>";
                         str += "<td style='text-align: center'>" + item.namSinh + "</td>";
                         str += "<td style='text-align: center'>" + (item.gioiTinh == false ? "Nữ" : "Nam") + "</td>";
                         str += "</a></tr>";
-                        count++;
+                        
                     });
 
                     $('#load_data').html(str);
@@ -172,77 +170,87 @@
             return errCount;
         }
         // UPDATE 1
-        function updateData() {
-            var errCount = validateData();
-            if (errCount == 0) {
-                var _customer = {};
-                _customer.maNV = $("#idnv").val();
-                _customer.hoTen = $("#ho-ten").val();
-                _customer.gioiTinh = $('input[class="radioBtnClass"]:checked').val();
-                _customer.namSinh = $("#year").val();
-                $.ajax({
-                    type: "PUT",
-                    url: host + '/NhanVien/Edit:' + _customer.maNV,
-                    data: "'{hoTen:'" + _customer.hoTen + "',namSinh:'" + _customer.namSinh + "',gioiTinh:'" + _customer.gioiTinh + "'}",
-                    contentType: "application/json; charset=utf-8",
-                    datatype: "jsondata",
-                    async: "true",
-                    success: function (response) {
-                        $(".errMsg ul").remove();
-                        var myObject = eval('(' + response.d + ')');
-                        if (myObject > 0) {
-                            bindData();
-                            $(".errMsg").append("<ul><li>Data updated successfully</li></ul>");
-                        }
-                        else {
-                            $(".errMsg").append("<ul><li>Opppps something went wrong.</li></ul>");
-                        }
-                        $(".errMsg").show("slow");
-                        clear();
-                    },
-                    error: function (response) {
-                        alert(response.status + ' ' + response.statusText);
-                    }
-                });
-            }
-        }
-        // UPDATE 2
-        // $(document).on('click', '#btnUpdate', function (e) {
-        //     e.preventDefault();
-        //     var idNhanVien = $('#idnv').val();
-        //     var data = {
-        //         'hoTen': $('#ho-ten').val(),
-        //         'namSinh': $('#year').val(),
-        //         'gioiTinh': $('input[class="radioBtnClass"]:checked').val()
-        //     }
-        //     $.ajax({
-        //         url: host + '/NhanVien/Edit:' + idNhanVien,
-        //         type: 'PUT',
-        //         data: data,
-        //         dataType: 'json',
-        //         success: function (r) {
-        //             // console.log(r);
-        //             if (r.status == 400) {
-        //                 $('#updateform_errList').html("");
-        //                 $('#updateform_errList').addClass('alert alert-danger');
-        //                 $.each(r.errors, function (key, err_values) {
-        //                     $('#updateform_errList').append('<li>'+err_values+'</li>');
-        //                 });
-        //             } else if(r.status == 404){
-        //                 $('#updateform_errList').html("");
-        //                 $('#success_message').addClass('alert alert-danger');
-        //                 $('#success_message').text(r.message);
-        //             } else{
-        //                 $('#updateform_errList').html("");
-        //                 $('#success_message').html("");
-        //                 $('#success_message').addClass('alert alert-danger');
-        //                 $('#success_message').text(r.message);
-        //                 $('#myDialog').modal('hide');
-        //             }
-        //         }
-        //     });
-        // });
+        //function updateData() {
+        //    var errCount = validateData();
+        //    if (errCount == 0) {
+        //        //var _customer = {};
+        //        //_customer.maNV = $("#idnv").val();
+        //        //_customer.hoTen = $("#ho-ten").val();
+        //        //_customer.gioiTinh = $('input[class="radioBtnClass"]:checked').val();
+        //        //_customer.namSinh = $("#year").val();
 
+        //        var data = {
+        //            'hoTen': $('#ho-ten').val(),
+        //            'namSinh': $('#year').val(),
+        //            'gioiTinh': $('input[class="radioBtnClass"]:checked').val()
+        //        }
+        //        $.ajax({
+        //            type: "PUT",
+        //            url: host + '/NhanVien/Edit:' + _customer.maNV,
+        //            data: data,
+        //            contentType: "application/json; charset=utf-8",
+        //            datatype: "jsondata",
+        //            async: "true",
+        //            success: function (response) {
+        //                $(".errMsg ul").remove();
+        //                var myObject = eval('(' + response.d + ')');
+        //                if (myObject > 0) {
+        //                    bindData();
+        //                    $(".errMsg").append("<ul><li>Data updated successfully</li></ul>");
+        //                }
+        //                else {
+        //                    $(".errMsg").append("<ul><li>Opppps something went wrong.</li></ul>");
+        //                }
+        //                $(".errMsg").show("slow");
+        //                clear();
+        //            },
+        //            error: function (response) {
+        //                alert(response.status + ' ' + response.statusText);
+        //            }
+        //        });
+        //    }
+        //}
+
+        // UPDATE 2
+         $(document).on('click', '#btnUpdate', function (e) {
+             e.preventDefault();
+             e.stopImmediatePropagation();
+             var idNhanVien = $('#idnv').val();
+             var data = {
+                 'MaNV': $('#idnv').val(),
+                 'HoTen': $('#ho-ten').val(),
+                 'NamSinh': $('#year').val(),
+                 'GioiTinh': $('input[class="radioBtnClass"]:checked').val()
+             }
+             $.ajax({
+                 url: host + '/NhanVien/Edit:' + idNhanVien,
+                 type: 'PUT',
+                 data: data,
+                 dataType: 'json',
+                 success: function (r) {
+                     // console.log(r);
+                     alert("Updated");
+                     if (r.status == 400) {
+                         $('#updateform_errList').html("");
+                         $('#updateform_errList').addClass('alert alert-danger');
+                         $.each(r.errors, function (key, err_values) {
+                             $('#updateform_errList').append('<li>'+err_values+'</li>');
+                         });
+                     } else if(r.status == 404){
+                         $('#updateform_errList').html("");
+                         $('#success_message').addClass('alert alert-danger');
+                         $('#success_message').text(r.message);
+                     } else{
+                         $('#updateform_errList').html("");
+                         $('#success_message').html("");
+                         $('#success_message').addClass('alert alert-danger');
+                         $('#success_message').text(r.message);
+                         $('#myDialog').modal('hide');
+                     }
+                 }
+             });
+         });
+            
         //
         function closeDialog() {
             x.close();
