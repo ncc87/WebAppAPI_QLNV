@@ -223,10 +223,10 @@
                  'gioiTinh': $('input[class="radioBtnClass"]:checked').val()
              }
              $.ajax({
-                 url: host + '/NhanVien/Edit:' + idNhanVien,
+                 url: host + '/NhanVien/',
                  type: 'PUT',
                  data: data,
-                 dataType: 'json',
+                 dataType: 'application/json',
                  success: function (r) {
                      // console.log(r);
                      alert("Updated");
