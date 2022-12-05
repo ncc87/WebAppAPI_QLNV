@@ -136,14 +136,14 @@ namespace MyWebApp.Controllers
         /// <param name="id"></param>
         /// <param name="nhanVienEdit">MaNV cần cập nhập</param>
         /// <returns></returns>
-        [HttpPut()]
-        public IActionResult Edit( [FromBody] NhanVien nhanVienEdit)
+        [HttpPut("Edit/{id}")]
+        public IActionResult Edit(string id, [FromBody] NhanVien nhanVienEdit)
         {
             try
             {
-                var nhanvien = _context.NhanViens.SingleOrDefault(nv => nv.MaNV == nhanVienEdit.MaNV);
+                var nhanvien = _context.NhanViens.SingleOrDefault(nv => nv.MaNV == id);
 
-                if (nhanVienEdit.MaNV != nhanvien.MaNV)
+                if (id != nhanvien.MaNV)
                 {
                     return BadRequest();
                 }
