@@ -126,7 +126,7 @@
     <Content Include="css\select2.min.css" />
     <Content Include="css\site.css" />
     <Content Include="css\util.css" />
-    <Content Include="DSNV.html" />
+    <Content Include="index.html" />
     <Content Include="js\site.js" />
     <Content Include="lib\bootstrap\dist\css\bootstrap-grid.css" />
     <Content Include="lib\bootstrap\dist\css\bootstrap-grid.min.css" />
