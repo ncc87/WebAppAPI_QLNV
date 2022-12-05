@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <label for="TextInput"> Mã nhân viên:</label>
                     <input type="text" id="idnv" class="form-control">
-                </div>AddNewStudent
+                </div>
                 <div class="form-group">
                     <label for="TextInput"> Họ tên: </label>
                     <input type="text" id="ho-ten" class="form-control">
@@ -80,7 +80,7 @@
                             <tr class="table100-head">
                                 <th class="column1">Mã nhân viên</th>
                                 <th class="column2">Họ tên</th>
-                                <th class="column3">Năm sinh</th>
+                                <th class="column3">Năm si nh</th>
                                 <th class="column4">Giới tính</th>
                             </tr>
                         </thead>
@@ -217,10 +217,10 @@
              e.stopImmediatePropagation();
              var idNhanVien = $('#idnv').val();
              var data = {
-                 'MaNV': $('#idnv').val(),
-                 'HoTen': $('#ho-ten').val(),
-                 'NamSinh': $('#year').val(),
-                 'GioiTinh': $('input[class="radioBtnClass"]:checked').val()
+                 'maNV': $('#idnv').val(),
+                 'hoTen': $('#ho-ten').val(),
+                 'namSinh': $('#year').val(),
+                 'gioiTinh': $('input[class="radioBtnClass"]:checked').val()
              }
              $.ajax({
                  url: host + '/NhanVien/Edit:' + idNhanVien,
@@ -230,27 +230,12 @@
                  success: function (r) {
                      // console.log(r);
                      alert("Updated");
-                     if (r.status == 400) {
-                         $('#updateform_errList').html("");
-                         $('#updateform_errList').addClass('alert alert-danger');
-                         $.each(r.errors, function (key, err_values) {
-                             $('#updateform_errList').append('<li>'+err_values+'</li>');
-                         });
-                     } else if(r.status == 404){
-                         $('#updateform_errList').html("");
-                         $('#success_message').addClass('alert alert-danger');
-                         $('#success_message').text(r.message);
-                     } else{
-                         $('#updateform_errList').html("");
-                         $('#success_message').html("");
-                         $('#success_message').addClass('alert alert-danger');
-                         $('#success_message').text(r.message);
-                         $('#myDialog').modal('hide');
-                     }
+                     
                  }
              });
          });
-            
+
+        
         //
         function closeDialog() {
             x.close();
@@ -268,7 +253,22 @@
             option += '</datalist>';
             document.getElementById("year").innerHTML = option;
         })();
-
+        //if (r.status == 400) {
+        //    $('#updateform_errList').html("");
+        //    $('#updateform_errList').addClass('alert alert-danger');
+        //    $.each(r.errors, function (key, err_values) {
+        //        $('#updateform_errList').append('<li>' + err_values + '</li>');
+        //    });
+        //} else if (r.status == 404) {
+        //    $('#updateform_errList').html("");
+        //    $('#success_message').addClass('alert alert-danger');
+        //    $('#success_message').text(r.message);
+        //} else {
+        //    $('#updateform_errList').html("");
+        //    $('#success_message').html("");
+        //    $('#success_message').addClass('alert alert-danger');
+        //    $('#success_message').text(r.message);
+        //    $('#myDialog').modal('hide');
     </script>
 
 </body>
